@@ -16,6 +16,7 @@ public class GateWayConfig {
      * 手动配置路由规则
      * 配置了一个id为baidu_service的路由规则，
      * 当访问地址http://localhost:9527/guonei的时候会自动转发到 http://new.baidu.con/guonei
+     *
      * @param routeLocatorBuilder
      * @return
      */

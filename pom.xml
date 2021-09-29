@@ -7,11 +7,12 @@
     <groupId>org.answer</groupId>
     <artifactId>spring-cloud-2.0</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <modules>
         <module>answer-gateway</module>
+        <module>answer-order</module>
+        <module>answer-user</module>
     </modules>
-    <packaging>pom</packaging>
-
 
     <properties>
         <java-version>1.8</java-version>
@@ -23,7 +24,6 @@
         <lombok.version>1.16.18</lombok.version>
         <mysql.version>5.1.47</mysql.version>
         <druid.version>1.1.16</druid.version>
-
     </properties>
 
     <!--dependencyManagement 用在父模块，用于管理版本 ，子模块不需要在写groupId和version ,这里只是声明 没有实际引入-->
@@ -32,7 +32,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.3.2.RELEASE</version>
+                <version>2.3.9.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -51,4 +51,18 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

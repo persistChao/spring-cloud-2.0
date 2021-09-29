@@ -1,0 +1,13 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: orderservice
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+logging:
+  level:
+    com.answer: info

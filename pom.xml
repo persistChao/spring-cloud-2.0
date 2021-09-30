@@ -14,6 +14,7 @@
         <module>answer-user</module>
         <module>answer-register-zookeeper</module>
         <module>answer-zk-client</module>
+        <module>answer-sentinel</module>
     </modules>
 
     <properties>
@@ -45,6 +46,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>

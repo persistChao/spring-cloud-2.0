@@ -6,6 +6,8 @@ spring:
       connect-string: 127.0.0.1:2181
       discovery:
         enabled: true
+
+
         register: true
 server:
   port: 8002

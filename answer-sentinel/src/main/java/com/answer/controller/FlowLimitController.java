@@ -33,4 +33,21 @@ public class FlowLimitController {
     }
 
 
+    @GetMapping("/testD")
+    public String testD(){
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.info(">>>>>>>>>>>>>>>>testD 测试RT");
+        return "------testD 测试RT-------";
+    }
+
+    @GetMapping("/c")
+    public String testC(){
+        int x = 10/0;
+        logger.info(">>>>>>>>>>>>>>>>testC<<<< 测试异常比例");
+        return "------testD 测试异常比例-------";
+    }
 }

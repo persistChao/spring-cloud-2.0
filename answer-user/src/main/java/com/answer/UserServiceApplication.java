@@ -7,12 +7,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author answer
  * @version 1.0.0
- * @date 2021/9/29 11:28 上午
+ * @date 2021/10/7 5:29 下午
  */
 @MapperScan("com.answer.mapper")
 @SpringBootApplication
-public class OrderApplication {
+public class UserServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OrderApplication.class, args);
+        SpringApplication.run(UserServiceApplication.class, args);
     }
 }

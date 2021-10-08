@@ -21,7 +21,6 @@ public class OrderService {
     public Order queryOrderById(Long orderId) {
         // 1.查询订单
         Order order = orderMapper.findById(orderId);
-        String url ="http://answer-user/user/"+order.getUserId();
         // 2.用Feign远程调用
         User user = userClient.findById(order.getUserId());
         // 3.封装user到Order

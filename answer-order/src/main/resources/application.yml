@@ -13,6 +13,3 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
 
-logging:
-  level:
-    com.answer: info

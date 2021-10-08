@@ -19,3 +19,7 @@ spring:
     password: root
     driver-class-name: com.mysql.jdbc.Driver
 
+#激活sentinel对feign的支持
+feign:
+  sentinel:
+    enabled: true

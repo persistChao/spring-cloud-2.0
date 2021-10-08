@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @version 1.0.0
  * @date 2021/10/7 5:52 下午
  */
-@FeignClient(value = "answer-user")
+@FeignClient(value = "answer-user",fallback = UserClientFallBack.class)
 public interface UserClient {
+
     @GetMapping("/user/{id}")
     Result<User> findById(@PathVariable("id")  Long id);
 }

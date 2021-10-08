@@ -5,7 +5,6 @@ import com.answer.mapper.OrderMapper;
 import com.answer.pojo.Order;
 import com.answer.pojo.User;
 import com.answer.remote.UserClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,7 +15,7 @@ public class OrderService {
     @Resource
     private OrderMapper orderMapper;
 
-    @Autowired
+    @Resource
     private UserClient userClient;
 
     public Order queryOrderById(Long orderId) {

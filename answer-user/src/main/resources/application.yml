@@ -10,6 +10,12 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        #配置sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认8719 加入被占用会自动从8719一次+1扫描 直到找到未被占用的端口
+        port: 8719
 server:
   port: 8003
 

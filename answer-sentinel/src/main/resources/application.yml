@@ -4,8 +4,9 @@ spring:
   application:
     name: answer-sentinel-service
   cloud:
-    discovery:
-      server-addr: localhost:8488
+    nacos:
+      discovery:
+        server-addr: localhost:8488
     sentinel:
       transport:
         #配置sentinel dashboard地址

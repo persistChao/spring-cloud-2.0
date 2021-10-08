@@ -1,5 +1,6 @@
 package com.answer.controller;
 
+import com.answer.common.Result;
 import com.answer.pojo.User;
 import com.answer.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +27,11 @@ public class UserController {
      * @return 用户
      */
     @GetMapping("/{id}")
-    public User queryById(@PathVariable("id") Long id,
-                          @RequestHeader(value = "Truth", required = false) String truth) {
+    public Result<User> queryById(@PathVariable("id") Long id,
+                                 @RequestHeader(value = "Truth", required = false) String truth) {
         log.info("userService queryById id={}",id);
-        return userService.queryById(id);
+        User user = userService.queryById(id);
+        return Result.ok(user);
+
     }
 }

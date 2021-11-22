@@ -15,6 +15,7 @@
         <module>answer-register-zookeeper</module>
         <module>answer-zk-client</module>
         <module>answer-sentinel</module>
+        <module>answer-rabbitmq</module>
     </modules>
 
     <properties>

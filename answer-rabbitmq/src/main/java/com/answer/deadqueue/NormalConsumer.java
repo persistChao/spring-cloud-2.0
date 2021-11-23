@@ -45,7 +45,7 @@ public class NormalConsumer {
 
         //普通队列的参数
         Map<String, Object> arguments = new HashMap<>(4);
-       // 第一种方式 ttl 过期时间 可以在生产者和消费者两种方式设置
+       // 第一种方式 ttl 消费的过期时间 如消费发送后10s 没有消费 则发送到死信队列 可以在生产者和消费者两种方式设置
         //设置过期时间
 //        arguments.put("x-message-ttl", 10000);
         //设置正常队列的死信交换机

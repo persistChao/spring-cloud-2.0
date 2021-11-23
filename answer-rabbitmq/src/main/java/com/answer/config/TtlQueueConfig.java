@@ -9,7 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * rabbitmq 配置 包括 队列 交换机 绑定关系等
+ * 这个配置的作用的 在项目启动时 去rabbitmq创建声明的 队列 交换机 和绑定关系
  * ttl 配置
+ *
  *
  * @author answer
  * @version 1.0.0

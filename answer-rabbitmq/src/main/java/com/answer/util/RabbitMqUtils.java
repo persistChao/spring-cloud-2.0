@@ -17,7 +17,6 @@ public class RabbitMqUtils {
     private static ConnectionFactory factory;
     static {
         factory= new ConnectionFactory();
-
         factory.setPort(5672);
         factory.setUsername("guest");
         factory.setPassword("guest");

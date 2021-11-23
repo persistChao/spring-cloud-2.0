@@ -11,6 +11,10 @@ import java.util.Map;
 
 /**
  * 死信队列 消费者2 -- 正常的消费者
+ * 死信的来源
+ * 1 过期ttl 1000
+ * 2 设置队列接收最大的消息数量 如设置x-max-length = 6 则队列只能接收6个 多余的会发送的死信队列
+ * 3 消费被拒绝 会发送到死信队列中
  *
  * @author answer
  * @version 1.0.0
@@ -42,11 +46,13 @@ public class NormalConsumer {
         //普通队列的参数
         Map<String, Object> arguments = new HashMap<>(4);
         //设置过期时间
-        arguments.put("x-message-ttl", 10000);
+//        arguments.put("x-message-ttl", 10000);
         //设置正常队列的死信交换机
         arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE_NAME);
         arguments.put("x-dead-letter-routing-key", "dead");
 
+        //设置队列最多能接收多少消息 超出的会发送到死信队列中
+        arguments.put("x-max-length", 6);
         //声明正常队列
         channel.queueDeclare(NORMAL_QUEUE_NAME, false, false, false, arguments);
 
@@ -60,8 +66,21 @@ public class NormalConsumer {
 
         System.out.println("等待接收消息......");
 
+//        DeliverCallback deliverCallback = (consumerTag, message) -> {
+//            String msg = new String(message.getBody(), StandardCharsets.UTF_8);
+//            if (msg.equals("info-5")){
+//                System.out.println("Consumer-1接收消息是=>" + msg + " : 此消息是被拒绝的");
+//                //requeue 是否放回原队列 即普通队列，如果放回（true）就不会放到死信队列，
+//                channel.basicReject(message.getEnvelope().getDeliveryTag(), false );
+//            }else {
+//                System.out.println("consumer-1 接收消息==>" + new String(message.getBody(), StandardCharsets.UTF_8));
+//                channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
+//            }
+//        };
+
         DeliverCallback deliverCallback = (consumerTag, message) -> System.out.println("consumer-1 接收消息==>" + new String(message.getBody(), StandardCharsets.UTF_8));
-        channel.basicConsume(NORMAL_QUEUE_NAME, true, deliverCallback, consumerTag -> {
+
+            channel.basicConsume(NORMAL_QUEUE_NAME, false, deliverCallback, consumerTag -> {
         });
 
 

@@ -45,12 +45,14 @@ public class NormalConsumer {
 
         //普通队列的参数
         Map<String, Object> arguments = new HashMap<>(4);
+       // 第一种方式 ttl 过期时间 可以在生产者和消费者两种方式设置
         //设置过期时间
 //        arguments.put("x-message-ttl", 10000);
         //设置正常队列的死信交换机
         arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE_NAME);
         arguments.put("x-dead-letter-routing-key", "dead");
 
+        //第2中方式 设置队列最大接收消息数量
         //设置队列最多能接收多少消息 超出的会发送到死信队列中
         arguments.put("x-max-length", 6);
         //声明正常队列
@@ -66,6 +68,7 @@ public class NormalConsumer {
 
         System.out.println("等待接收消息......");
 
+        //第3中方式 消息被拒绝 发送到死信队列
 //        DeliverCallback deliverCallback = (consumerTag, message) -> {
 //            String msg = new String(message.getBody(), StandardCharsets.UTF_8);
 //            if (msg.equals("info-5")){

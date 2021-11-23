@@ -39,6 +39,10 @@ public class TtlQueueConfig {
      */
     private static final String QUEUE_B = "QB";
 
+    private static final String QUEUE_C = "QC";
+
+
+
     /**
      * 死信队列名称
      */
@@ -80,7 +84,7 @@ public class TtlQueueConfig {
      * 声明队列B
      */
     @Bean("queueB")
-    public Queue queue(){
+    public Queue queueB(){
         Map<String, Object> arguments = new HashMap<>(4);
         //设置消费消息的过期时间ttl 单位ms
         arguments.put("x-message-ttl", 40000);
@@ -90,6 +94,21 @@ public class TtlQueueConfig {
         arguments.put("x-dead-letter-routing-key", "YD");
 
         return QueueBuilder.durable(QUEUE_B).withArguments(arguments).build();
+    }
+
+    /**
+     * 声明队列C 用户延迟队列
+     * 用于生产者直接设置ttl 然后发送消息到这个队列 ，生产者可以在不同的发送消息中 设置不同的ttl 发送消息到这个队列
+     * tip: 适合于所有ttl的队列
+     */
+    @Bean("queueC")
+    public Queue queueC(){
+        Map<String, Object> arguments = new HashMap<>(4);
+        //设置死信交换机
+        arguments.put("x-dead-letter-exchange",Y_DEAD_LETTER_EXCHANGE);
+        //设置死信队列
+        arguments.put("x-dead-letter-routing-key", "YD");
+        return QueueBuilder.durable(QUEUE_C).withArguments(arguments).build();
     }
 
 
@@ -119,5 +138,16 @@ public class TtlQueueConfig {
                                        @Qualifier("yExchange") DirectExchange yExchange){
 
         return BindingBuilder.bind(queueD).to(yExchange).with("YD");
+    }
+
+    /**
+     * 要后官湖延迟队列
+     * @param queueC 队列名称
+     * @param xExchange 交换机名称
+     * @return Binding
+     */
+    @Bean
+    public Binding queueCBindingExchangeX(@Qualifier("queueC") Queue queueC ,@Qualifier("xExchange") DirectExchange xExchange){
+        return BindingBuilder.bind(queueC).to(xExchange).with("XC");
     }
 }

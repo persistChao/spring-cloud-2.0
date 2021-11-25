@@ -2,6 +2,8 @@ package com.answer.controller;
 
 import cn.hutool.core.date.DateUtil;
 import com.answer.config.DelayedQueueConfig;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,7 @@ import java.util.Date;
  * @version 1.0.0
  * @date 2021/11/23 5:26 下午
  */
+@Api(tags = "发送消息-生产者")
 @Slf4j
 @RestController
 @RequestMapping("/msg")
@@ -28,6 +31,7 @@ public class SendMessageController {
     @Resource
     private RabbitTemplate rabbitTemplate;
 
+    @ApiOperation("发送普通消息")
     @GetMapping("/ttl/sendMsg/{msg}")
     public String sendMsg(@PathVariable("msg") String msg) {
         log.info("当前时间:{},发送一条信息给两个TTL队列: {} ", DateUtil.formatDateTime(new Date()), msg);
@@ -38,6 +42,7 @@ public class SendMessageController {
         return "ok";
     }
 
+    @ApiOperation("发送ttl延迟的消息")
     @GetMapping("/send/{msg}/{ttlTime}")
     public String sendMsg(@PathVariable("msg") String msg, @PathVariable("ttlTime") String ttlTime) {
         log.info("当前时间:{},发送消息时长{}毫秒TTL信息给队列QC:{}", DateUtil.formatDateTime(new Date()), ttlTime, msg);
@@ -53,6 +58,7 @@ public class SendMessageController {
         return "success";
     }
 
+    @ApiOperation("发送delayed的延迟消息")
     @GetMapping("/send/delayed/{msg}/{delayedTime}")
     public String sendDelayedMsg(@PathVariable("msg") String msg ,
                                  @PathVariable("delayedTime") Integer delayedTime){

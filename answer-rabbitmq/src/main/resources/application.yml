@@ -3,3 +3,7 @@ logging:
     root: info
 server:
   port: 9900
+
+spring:
+  rabbitmq:
+    publisher-confirm-type: correlated #开启发布确认回调 使用correlated 交换机收到消息后会回调告诉publisher成功或者失败

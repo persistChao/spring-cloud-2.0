@@ -1,6 +1,7 @@
 package com.answer.controller;
 
 import cn.hutool.core.date.DateUtil;
+import com.answer.config.DelayedQueueConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,18 @@ public class SendMessageController {
             m.getMessageProperties().setExpiration(ttlTime);
             return m;
         });
+        return "success";
+    }
+
+    @GetMapping("/send/delayed/{msg}/{delayedTime}")
+    public String sendDelayedMsg(@PathVariable("msg") String msg ,
+                                 @PathVariable("delayedTime") Integer delayedTime){
+        log.info("当前时间={} 发送一条时长{}毫秒信息给延迟队列delayed.queue:{}",DateUtil.formatDateTime(new Date()) ,delayedTime,msg);
+        rabbitTemplate.convertAndSend(DelayedQueueConfig.DELAYED_EXCHANGE_NAME, DelayedQueueConfig.DELAYED_ROUTING_KEY ,msg ,m->{
+            m.getMessageProperties().setDelay(delayedTime);
+            return m;
+        });
+
         return "success";
     }
 }

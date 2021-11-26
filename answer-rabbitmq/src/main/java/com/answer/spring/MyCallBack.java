@@ -70,6 +70,6 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback , RabbitTempla
      */
     @Override
     public void returnedMessage(Message message, int replyCode, String replyText, String exchange, String routingKey) {
-        log.info("消息{},被交换机{}退回，退回原因:{} 路由key:{}",new String(message.getBody()) ,exchange,replyText,routingKey);
+        log.info("消息:{},被交换机:{}退回，退回原因:{} 路由key:{}",new String(message.getBody()) ,exchange,replyText,routingKey);
     }
 }

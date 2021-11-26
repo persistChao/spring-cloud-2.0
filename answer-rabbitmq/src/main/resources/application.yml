@@ -11,3 +11,6 @@ spring:
     # rabbitTemplate调用 waitForConfirms或者waitForConfirmsOrDie方法 等待broker节点返回发送结果，根据返回结果判断下一步逻辑
     # 要注意的是 waitForConfirmsOrDie方法如果返回false则会关闭channel 接下来无法发送消息到broker
     publisher-confirm-type: correlated
+    # 默认情况 当生产者 发送消息到broker 交换机确认成功 ，但是 在交换机路由到队列的时候 找不到队列会直接丢弃消息
+    # 这个配置是 在交换机路由不到queue的时候 回退消息
+    publisher-returns: true

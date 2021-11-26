@@ -20,6 +20,6 @@ public class ConfirmConsumer {
     @RabbitListener(queues = ConfirmConfig.CONFIRM_QUEUE_NAME)
     public void receiveData(Message message) {
         String msg = new String(message.getBody(), StandardCharsets.UTF_8);
-        log.info(":接收到的队列confirm queue 消息为:{}", msg);
+        log.info("Consumer接收队列为confirm_queue的消息为:{}", msg);
     }
 }

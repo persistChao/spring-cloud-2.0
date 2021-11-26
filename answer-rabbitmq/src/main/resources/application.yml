@@ -6,4 +6,8 @@ server:
 
 spring:
   rabbitmq:
-    publisher-confirm-type: correlated #开启发布确认回调 使用correlated 交换机收到消息后会回调告诉publisher成功或者失败
+    #开启发布确认回调 使用correlated 交换机收到消息后会回调告诉publisher成功或者失败
+    # simple 单个确认 效果与correlated相同 但是他是发一条确认一条 效率比较低，其次在发布确认消息成功后使用
+    # rabbitTemplate调用 waitForConfirms或者waitForConfirmsOrDie方法 等待broker节点返回发送结果，根据返回结果判断下一步逻辑
+    # 要注意的是 waitForConfirmsOrDie方法如果返回false则会关闭channel 接下来无法发送消息到broker
+    publisher-confirm-type: correlated
